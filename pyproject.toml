@@ -1,0 +1,11 @@
+[project]
+name = "chatpgt-cli"
+version = "0.1.0"
+description = "A CLI tool for chatting with OpenAI's GPT models."
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "openai>=1.107.0",
+    "python-dotenv>=1.1.1",
+]
