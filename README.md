@@ -39,6 +39,8 @@ export OPENAI_API_KEY=your_api_key_here
 
 ## Usage
 
+### Basic Usage
+
 Run directly:
 
 ```bash
@@ -51,8 +53,72 @@ Or if installed as a package:
 chatpgt-cli [--model MODEL] [--strip-markdown]
 ```
 
+**Command Line Options:**
 - `--model`: Model name (default: gpt-4.1-mini)
-- `--strip-markdown`: Strip basic markdown (asterisks, backticks) from the response.
+- `--strip-markdown`: Strip basic markdown (asterisks, backticks) from the response
+- `--set-system`: Set system prompt for continuous instructions
+- `--clear-context`: Clear conversation history and system prompt
+
+### Context & Memory Features
+
+This CLI now supports **persistent context and memory** across sessions:
+
+#### System Prompts (Continuous Instructions)
+Set persistent instructions that apply to all future messages:
+
+```bash
+# Set translation mode
+python main.py --set-system "Translate everything to Japanese"
+
+# Set English improvement mode
+python main.py --set-system "Please improve my English and explain corrections"
+
+# Clear all context
+python main.py --clear-context
+```
+
+#### In-Chat Commands
+During a chat session, use these special commands:
+
+- `/clear` - Clear conversation history
+- `/system <prompt>` - Set system prompt
+- `/translate <language>` - Set translation mode
+- `/improve` - Enable English improvement mode
+
+#### Examples
+
+**Translation Mode:**
+```bash
+python main.py --set-system "Translate to Chinese"
+python main.py
+You: Hello, How are you
+GPT: 你好，你好吗？
+```
+
+**English Improvement Mode:**
+```bash
+python main.py --set-system "Improve my English and explain corrections"
+python main.py
+You: I am very good in English
+GPT: I am very good at English. (Correction: Use "good at" when talking about skills)
+```
+
+**In-Chat Mode Switching:**
+```
+You: /translate Spanish
+Translation mode set to: Spanish
+You: Good morning
+GPT: Buenos días
+You: /improve
+English improvement mode activated!
+You: I have much books
+GPT: I have many books. (Correction: Use "many" with countable nouns like "books")
+```
+
+#### Context Storage
+- Conversation history and settings are automatically saved to `.chatgpt_context.json`
+- Context persists between sessions
+- Last 20 messages are kept in memory for context
 
 ---
 
