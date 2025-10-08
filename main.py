@@ -9,9 +9,10 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-# Define default model and context file
+# Define default model and context file (in the same directory as main.py)
 DEFAULT_MODEL = "gpt-4.1-mini"
-CONTEXT_FILE = ".chatgpt_context.json"
+SCRIPT_DIR = Path(__file__).parent
+CONTEXT_FILE = SCRIPT_DIR / ".chatgpt_context.json"
 
 
 def strip_markdown(text: str) -> str:
@@ -25,7 +26,7 @@ def strip_markdown(text: str) -> str:
 
 def load_context() -> dict:
     """Load context settings from file, return defaults if file doesn't exist"""
-    if Path(CONTEXT_FILE).exists():
+    if CONTEXT_FILE.exists():
         with open(CONTEXT_FILE, 'r', encoding='utf-8') as f:
             return json.load(f)
     # Return default context structure
